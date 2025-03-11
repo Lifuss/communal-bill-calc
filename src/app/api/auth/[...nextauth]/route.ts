@@ -1,8 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
-// Припустимо, ти маєш ORM (наприклад, Prisma) з моделлю User
-import { prisma } from "@/lib/prisma"; // шлях залежно від тебе
+import { prisma } from "@/lib/prisma";
 
 const handler = NextAuth({
   providers: [
