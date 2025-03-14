@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
+import bcrypt from "bcryptjs";
 
 const handler = NextAuth({
   providers: [
@@ -30,8 +31,9 @@ const handler = NextAuth({
           throw new Error("No user found");
         }
 
-        // 3. Перевіряємо пароль (у реальному проєкті - bcrypt.compare тощо)
-        if (user.password !== password) {
+        // 3. Перевіряємо пароль
+        const isValid = await bcrypt.compare(password, user.password);
+        if (!isValid) {
           throw new Error("Password is incorrect");
         }
 
