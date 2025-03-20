@@ -2,6 +2,7 @@
 
 import { Button } from "@/app/(components)/Button";
 import { formsConfig, FormType } from "./formsConfig";
+import Link from "next/link";
 
 interface BaseFormProps {
   formType: FormType;
@@ -20,16 +21,13 @@ export default function BaseForm({ formType, handleSubmit }: BaseFormProps) {
     formData.forEach((value, key) => {
       formDataObj[key] = value.toString();
     });
-
-    console.log("Form data:", formDataObj);
-
     handleSubmit(formDataObj);
   };
 
   return (
     <form
       onSubmit={onSubmit}
-      className="space-y-4 mx-auto max-w-sm border-2 rounded-xl mt-[10%] p-4 flex flex-col items-center"
+      className="space-y-4 mx-auto max-w-sm border-1 border-gray-300 rounded-xl mt-[10%] p-4 flex flex-col items-center"
     >
       <h2 className="text-2xl text-center">{config.title}</h2>
       {config.fields.map((field) => (
@@ -47,14 +45,14 @@ export default function BaseForm({ formType, handleSubmit }: BaseFormProps) {
       </Button>
       <div className="mt-2 text-xs">
         {formType === FormType.LOGIN && (
-          <a href="/auth/register" className="text-blue-500">
+          <Link href="/auth/register" className="text-blue-500">
             Ще не маєте аккаунту?
-          </a>
+          </Link>
         )}
         {formType === FormType.REGISTER && (
-          <a href="/auth/login" className="text-blue-500">
+          <Link href="/auth/login" className="text-blue-500">
             Вже зареєстровані?
-          </a>
+          </Link>
         )}
       </div>
     </form>
