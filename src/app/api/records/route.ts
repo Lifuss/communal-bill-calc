@@ -1,4 +1,3 @@
-// app/api/records/route.ts
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
@@ -22,20 +21,22 @@ export async function GET() {
   return NextResponse.json(records);
 }
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
   if (!session) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  const body = await req.json();
-  const { electricityKwh, gasM3 } = body;
+  const body = await request.json();
+  const { electricityKwh, gasM3, priceElectricity, priceGas } = body;
 
   const record = await prisma.record.create({
     data: {
       userId: session.user.id,
       electricityKwh,
       gasM3,
+      priceElectricity,
+      priceGas,
     },
   });
 
