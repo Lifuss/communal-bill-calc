@@ -6,7 +6,8 @@ import { ReactNode } from "react";
 
 /**
  * Обгортка для всіх провайдерів, які використовуються в проєкті.
- * В даний момент - лише SessionProvider(NextAuth).
+ * В даний момент - React Query та NextAuth.
+ * @param children Дочірні компоненти.
  */
 export function Providers({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient();
