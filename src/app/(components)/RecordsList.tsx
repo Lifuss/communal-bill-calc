@@ -3,6 +3,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import SkeletonList from "./skeletons/SkeletonList";
 
 const fetchRecords = async (): Promise<any[]> => {
   const res = await fetch("/api/records");
@@ -26,7 +27,7 @@ const RecordsList = () => {
   });
 
   if (status === "loading" || isLoading) {
-    return <div>Loading...</div>;
+    return <SkeletonList />;
   }
 
   if (status === "unauthenticated") {
