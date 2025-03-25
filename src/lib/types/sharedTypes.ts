@@ -25,13 +25,15 @@ export interface User {
   name?: string;
 }
 
+export type RecordType = "gas" | "electricity";
+
 export interface Records {
   id: string;
   userId: string;
-  user: User;
   createdAt: string;
-  electricityKwh?: number;
-  gasM3?: number;
-  priceElectricity?: number;
-  priceGas?: number;
+  type: RecordType;
+  usage?: number | null;
+  price?: number | null;
+  nightUsage?: number | null;
+  nightPrice?: number | null;
 }

@@ -4,6 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import SkeletonList from "./skeletons/SkeletonList";
+import { Records } from "@/lib/types/sharedTypes";
+import Image from "next/image";
+import RecordRow from "./RecordRow";
 
 const fetchRecords = async (): Promise<any[]> => {
   const res = await fetch("/api/records");
@@ -33,9 +36,9 @@ const RecordsList = () => {
   if (status === "unauthenticated") {
     return (
       <div>
-        <h1 className="text-2xl font-bold">Неавторизовано</h1>
-        <p className="text-xl">
-          <Link href="/auth/login" className="underline">
+        <h1 classNameName="text-2xl font-bold">Неавторизовано</h1>
+        <p classNameName="text-xl">
+          <Link href="/auth/login" classNameName="underline">
             Ввійдіть
           </Link>{" "}
           в аккаунт для продовження
@@ -49,21 +52,45 @@ const RecordsList = () => {
   }
 
   return (
-    <div>
-      <button onClick={() => refetch()}>Refresh</button>
-      <ul>
-        {data && data.length > 0 ? (
-          data.map((record: any) => (
-            <li key={record.id}>
-              <span>{new Date(record.createdAt).toLocaleString()}</span>{" "}
-              <span>{record.electricityKwh ?? "N/A"}</span>{" "}
-              <span>{record.gasM3 ?? "N/A"}</span>
-            </li>
-          ))
-        ) : (
-          <div>No records found.</div>
-        )}
-      </ul>
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" className="px-6 py-3">
+              Вид
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Дата
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Використано (Кв/г|Куб)
+            </th>
+            <th
+              title="Різниця відносно останнього запису"
+              scope="col"
+              className="px-6 py-3"
+            >
+              Динаміка
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Ціна\од
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Сума
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Дія
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {data && data.length > 0
+            ? data.map((record: Records) => (
+                <RecordRow key={record.id} record={record} />
+              ))
+            : "Даних нема"}
+        </tbody>
+      </table>
     </div>
   );
 };
