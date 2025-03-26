@@ -63,7 +63,7 @@ const RecordsList = ({
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-2">
         <Image
           src={`/assets/${tableType}.png`}
           alt={`знак ${
