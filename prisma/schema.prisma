@@ -37,6 +37,7 @@ model Record {
   usage      Int?   
   price      Decimal?  
   nightUsage Int? 
-  nightPrice Decimal?  
+  nightPrice Decimal?
+  note       String?  
 }
 
