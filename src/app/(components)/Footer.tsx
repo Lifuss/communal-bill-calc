@@ -4,7 +4,7 @@ const Footer = () => {
   const aClassName =
     "text-blue-500 hover:text-blue-800 focus:text-blue-800 active:text-blue-800";
   return (
-    <footer className="border-t border-gray-300 pt-1 px-5 md:px-8">
+    <footer className="border-t border-gray-300 pt-1 container mx-auto">
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Logo />
